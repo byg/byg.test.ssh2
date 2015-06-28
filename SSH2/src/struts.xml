@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+	
+<struts>
+	<!-- 指定全局国际化资源文件 -->
+	<constant name="struts.custom.i18n.resources" value="native"/>
+	<!-- 指定国际化编码所使用的字符集 -->	
+	<constant name="struts.i18n.encoding" value="utf-8"/>
+	<constant name="struts.devMode" value="true"></constant>
+	<!--  不指定namespace就会认为是默认的命名空间。访问时如果找不到要找的命名空间，就会在默认命名空间寻找action-->
+	 <package name="struts2"  extends="struts-default">
+
+		<action name="user_*" class="com.iri.UserServiceAction" method="{1}">
+			<result name="success">/message.jsp</result>
+		</action>
+		
+		
+	 </package>
+		
+	
+	 
+	 
+</struts>

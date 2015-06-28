@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd ">
+		
+		<context:component-scan base-package="com.iri"/><!--	 自动扫描bean -->
+		
+		<context:property-placeholder location="classpath:mysql.properties"/><!-- 占位符-部分使用了properties文件 -->
+		<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		    <property name="driverClass" value="${driverClass}"></property>
+		    <property name="jdbcUrl" value="${jdbcUrl}"></property>
+		    <property name="user" value="${user}"></property>
+		    <property name="password" value="${password}"></property>
+		    <property name="initialPoolSize" value="2"></property>
+		    <property name="maxPoolSize" value="100"></property>
+		    <property name="maxIdleTime" value="2"></property>
+		    <property name="minPoolSize" value="1"></property>
+		</bean>
+		
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">          
+	  <property name="dataSource">
+	   <ref bean="dataSource"/>
+	  </property>
+	  <property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+	 
+ </bean> 
+
+<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+  	    <property name="sessionFactory" ref="sessionFactory"></property>
+ </bean>
+  <tx:annotation-driven transaction-manager="txManager"/> <!-- 采用注解方式配置事物   比较常用-->
+</beans>

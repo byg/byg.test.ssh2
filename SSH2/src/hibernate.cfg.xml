@@ -1,0 +1,21 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.show_sql">true</property><!-- 其他配置 -->
+		<property name="hibernate.hbm2ddl.auto">update</property><!-- 其他配置 -->
+		<property name="hibernate.format_sql">false</property><!-- 其他配置 -->
+		<property name="hibernate.connection.isolation">2</property><!-- 设置事物隔离级别 -->
+		<!-- 事物有四个隔离级别 -->
+		<!-- 	读未提交 1 -->
+		<!-- 	读已提交 2 -->
+		<!-- 	可重复读 4 -->
+		<!-- 	不可并发 8 -->
+		<!-- c3p0连接配置 -->
+		<mapping resource="com/iri/Person.hbm.xml"/><!-- 映射文件配置 -->
+		
+	</session-factory>
+</hibernate-configuration>
